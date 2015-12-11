@@ -109,13 +109,6 @@ class ActivitiesDowTableSeeder extends Seeder
         DB::table('activities_dow')->insert([
         'created_at' => Carbon\Carbon::now()->toDateTimeString(),
         'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-        'day_of_week' => '1',
-        'activity_id' => $activity_id,
-        ]);
-        $activity_id = \App\Activity::where('name','=','Work Hours')->pluck('id');
-        DB::table('activities_dow')->insert([
-        'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
         'day_of_week' => '2',
         'activity_id' => $activity_id,
         ]);
@@ -140,12 +133,27 @@ class ActivitiesDowTableSeeder extends Seeder
         'day_of_week' => '5',
         'activity_id' => $activity_id,
         ]);
+        $activity_id = \App\Activity::where('name','=','Work Hours')->pluck('id');
+        DB::table('activities_dow')->insert([
+        'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'day_of_week' => '6',
+        'activity_id' => $activity_id,
+        ]);
 
         $activity_id = \App\Activity::where('name','=','Happy Hour')->pluck('id');
         DB::table('activities_dow')->insert([
         'created_at' => Carbon\Carbon::now()->toDateTimeString(),
         'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
         'day_of_week' => '6',
+        'activity_id' => $activity_id,
+        ]);
+
+        $activity_id = \App\Activity::where('name','=','Playground')->pluck('id');
+        DB::table('activities_dow')->insert([
+        'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'day_of_week' => '1',
         'activity_id' => $activity_id,
         ]);
 

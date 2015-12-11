@@ -17,4 +17,9 @@ class Activity extends Model
         # Define a one-to-many relationship.
         return $this->hasMany('\App\Activity_Dow');
     }
+
+    public function schedules() {
+        # Activity belongs to many schedules
+        return $this->belongsToMany('\App\Schedule')->withTimestamps();
+    }
 }

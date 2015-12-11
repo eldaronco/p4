@@ -1,0 +1,82 @@
+/* This is the main style sheet for the custom pages */
+body {
+	margin: 20px;
+	padding: 20px;
+}
+
+footer {
+	text-align: center;
+}
+
+a:link{
+	color: #000080;
+	text-decoration: underline;
+	float:left;
+}
+
+a:visited{
+	color: gray;
+}
+
+a:hover {
+	color: #800000;
+	background-color: gray;
+}
+
+h1.main_title {
+	width: 50%;
+	border: #000080;
+	border-style: solid;
+	background-color: #000080;
+	color: #FFFFFF;
+	padding: 5px 5px 5px 5px;
+	text-align:center;
+	font-weight: bold;
+	font-style:italic;
+	position: absolute;
+	left: 25%;
+	top: 0%;
+}
+
+header {
+	color: #800000;
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+	padding: 20px;
+	margin: 20px;
+}
+
+footer {
+	position: fixed;
+	bottom: 5%;
+}
+
+.result_box {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: #808000;
+	border-style: solid;
+	background-color: #F5F5F5;
+	padding: 5px 5px 5px 5px;
+	text-align:left;
+	font-weight: bold;
+}
+
+.no_result_box {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: #800000;
+	border-style: solid;
+	background-color: #F5F5F5;
+	padding: 5px 5px 5px 5px;
+	text-align:center;
+	font-weight: bold;
+}
+
+ul.error_message {
+	list-style-type: none;
+	color: red;
+}

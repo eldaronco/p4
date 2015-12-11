@@ -59,6 +59,18 @@ class ActivitiesTableSeeder extends Seeder
         'group_id' => $group_id,
         ]);
 
+        $group_id = \App\Group::where('name','=','Family')->pluck('id');
+        DB::table('activities')->insert([
+        'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'name' => 'Playground',
+        'description' => 'Take kids to park.',
+        'days' => 'Su',
+        'duration_minutes' => '120',
+        'default_time' => '1300',
+        'group_id' => $group_id,
+        ]);
+
         $group_id = \App\Group::where('name','=','Sleep')->pluck('id');
         DB::table('activities')->insert([
         'created_at' => Carbon\Carbon::now()->toDateTimeString(),
