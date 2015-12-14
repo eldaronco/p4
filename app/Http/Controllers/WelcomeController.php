@@ -19,7 +19,7 @@ class WelcomeController extends Controller
 //            return redirect()->to('/books');
 //        }
 
-//        return view('welcome.index');
-        return 'Welcome to Plan My Week!';
+        return view('welcome.index');
+//        return 'Welcome to Plan My Week!';
     }
 }
