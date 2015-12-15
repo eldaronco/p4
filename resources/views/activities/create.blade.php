@@ -36,6 +36,16 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
+            <label>* Description:</label>
+            <input
+                type='text'
+                id='description'
+                name='description'
+                value='{{ old('description','Description') }}'
+            >
+        </div>
+
+        <div class='form-group'>
             <label for='group'>* Group:</label>
             <select name='group' id='group'>
                 @foreach($groups_for_dropdown as $group_id => $group_name)
@@ -91,11 +101,5 @@ Use it to add specific things that *this* View needs at the end of the body,
 such as a page specific JavaScript files.
 --}}
 @section('body')
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker3').datetimepicker({
-            format: 'LT'
-        });
-    });
-</script>
+
 @stop

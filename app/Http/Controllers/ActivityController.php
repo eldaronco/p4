@@ -41,23 +41,30 @@ class ActivityController extends Controller
             $request,
             [
                 'name' => 'required|min:2',
-                'duration' => 'required|min:1',
+                'duration_minutes' => 'required|min:1',
                 'group' => 'required',
             ]
         );
     # Enter activity into the database
         $activity = new \App\Activity();
         $activity->name = $request->name;
+        $activity->description = $request->description;
         $activity->group_id = $request->group;
-        $activity->duration_minutes = $request->duration;
+        $activity->duration_minutes = $request->duration_minutes;
         $activity->default_time = $request->default_time;
-        $activity->save();
+
         if($request->days) {
             $days = $request->days;
         }
         else {
             $days = [];
         }
+        $activity_days = '';
+        foreach($days as $day){
+            $activity_days = $activity_days . ' '. $this->days_for_checkbox[$day];
+        }
+        $activity->days = $activity_days;
+        $activity->save();
 
         foreach($days as $day) {
             $activity_dow = new \App\Activities_dow();
@@ -65,14 +72,16 @@ class ActivityController extends Controller
             $activity->activities_dow()->save($activity_dow);
         }
         \Session::flash('flash_message','Your activity has been added.');
-        return redirect('/activities/edit/'.$activity->id);
+        return redirect('/activities/show');
     }
 
 
 
-    public function getShow($id)
+    public function getShow()
     {
-        return 'Show activity: '.$id;
+        $activities = \App\Activity::with('activities_dow')->orderBy('id','DESC')->get();
+
+        return view('activities.show')->with('activities',$activities);
     }
 
     /**
@@ -105,33 +114,71 @@ class ActivityController extends Controller
     public function postEdit(Request $request) {
         $activity = \App\Activity::find($request->id);
         $activity->name = $request->name;
+        $activity->description = $request->description;
         $activity->group_id = $request->group;
         $activity->duration_minutes = $request->duration_minutes;
         $activity->default_time = $request->default_time;
-        $activity->save();
+
         if($request->days) {
             $days = $request->days;
         }
         else {
             $days = [];
         }
-            $old_activity_dow = [];
-            $old_activity_dow = \App\Activities_dow::where('activity_id', '=', $activity->id);
-        
-            foreach ($old_activity_dow as $odow) {
-                \Session::flash('flash_message','Deleting activity!');
-                Debugbar::info($activity->id);
-                $odow->delete();
-            }
+        $activity_days = '';
+        foreach($days as $day){
+            $activity_days = $activity_days . ' '. $this->days_for_checkbox[$day];
+        }
+        $activity->days = $activity_days;
+        $activity->save();
+
+        // Get rid of all of the current activity->day_of_week rows in Activities_dow
+        $old_activity_dow = [];
+        $old_activity_dow = \App\Activities_dow::where('activity_id', '=', $activity->id)->get();
+
+        foreach ($old_activity_dow as $odow) {
+            $odow->delete();
+        }
+
+        // Add back the new ones
         foreach($days as $day) {
             $activity_dow = new \App\Activities_dow();
             $activity_dow->day_of_week = $day;
             $activity->activities_dow()->save($activity_dow);
         }
+
+
         \Session::flash('flash_message','Your activity was updated.');
-        return redirect('/activities/edit/'.$activity->id);
+        return redirect('/activities/show');
     }
 
+    public function getConfirmDelete($activity_id) {
+
+        $activity = \App\Activity::find($activity_id);
+
+        return view('activities.delete')->with('activity', $activity);
+    }
+
+    public function getDoDelete($activity_id) {
+
+        # Get the book to be deleted
+        $activity = \App\Activity::find($activity_id);
+
+        if(is_null($activity)) {
+            \Session::flash('flash_message','Activity not found.');
+            return redirect('/activities/show');
+        }
+
+
+        # Then delete the book
+        $activity->activities_dow()->delete();
+        $activity->delete();
+
+        # Done
+        \Session::flash('flash_message',$activity->name.' was deleted.');
+        return redirect('/activities/show');
+
+    }
 
 
 }

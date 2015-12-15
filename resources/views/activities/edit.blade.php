@@ -37,6 +37,16 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
+            <label>* Description:</label>
+            <input
+                type='text'
+                id='description'
+                name='description'
+                value='{{$activity->description }}'
+            >
+        </div>
+
+        <div class='form-group'>
             <label for='group'>* Group:</label>
             <select name='group' id='group'>
                 @foreach($groups_for_dropdown as $group_id => $group_name)
@@ -81,7 +91,7 @@ such as a page specific styesheets.
 
         <button type="submit" class="btn btn-primary">Update Activity</button>
     </form>
-<div id = 'debug'></div>
+
 @stop
 
 

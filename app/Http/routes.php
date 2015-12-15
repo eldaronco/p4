@@ -20,7 +20,10 @@ Route::get('/activities/edit/{id?}', 'ActivityController@getEdit');
 Route::post('/activities/edit', 'ActivityController@postEdit');
 
 Route::get('/activities', 'ActivityController@getIndex');
-Route::get('/activities/show/{id?}', 'ActivityController@getShow');
+Route::get('/activities/show/', 'ActivityController@getShow');
+
+Route::get('/activities/confirm-delete/{id?}', 'ActivityController@getConfirmDelete');
+Route::get('/activities/delete/{id?}', 'ActivityController@getDoDelete');
 
 Route::get('/schedules/create', 'ScheduleController@getCreate');
 Route::post('/schedules/create', 'ScheduleController@postCreate');
