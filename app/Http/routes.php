@@ -20,19 +20,23 @@ Route::get('/activities/edit/{id?}', 'ActivityController@getEdit');
 Route::post('/activities/edit', 'ActivityController@postEdit');
 
 Route::get('/activities', 'ActivityController@getIndex');
-Route::get('/activities/show/', 'ActivityController@getShow');
+Route::get('/activities/show/{id?}', 'ActivityController@getShow');
 
 Route::get('/activities/confirm-delete/{id?}', 'ActivityController@getConfirmDelete');
 Route::get('/activities/delete/{id?}', 'ActivityController@getDoDelete');
 
-Route::get('/schedules/create', 'ScheduleController@getCreate');
+Route::get('/schedules/confirm-delete/{id?}', 'ScheduleController@getConfirmDelete');
+Route::get('/schedules/delete/{id?}', 'ScheduleController@getDoDelete');
+
+
 Route::post('/schedules/create', 'ScheduleController@postCreate');
 
-Route::get('/schedules/edit/{id?}', 'ScheduleController@getEdit');
+
 Route::post('/schedules/edit', 'ScheduleController@postEdit');
 
 Route::get('/schedules', 'ScheduleController@getIndex');
-Route::get('/schedules/show/{title?}', 'ScheduleController@getShow');
+Route::get('/schedules/show/{id?}', 'ScheduleController@getShow');
+
 
 # Show login form
 Route::get('/login', 'Auth\AuthController@getLogin');
@@ -48,6 +52,10 @@ Route::get('/register', 'Auth\AuthController@getRegister');
 
 # Process registration form
 Route::post('/register', 'Auth\AuthController@postRegister');
+
+
+Route::get('schedules/testing/{id?}', 'ScheduleController@getCalendar');
+Route::get('/schedules/calendar', 'ScheduleController@showCalendar');
 
 Route::get('/practice', function() {
 

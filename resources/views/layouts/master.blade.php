@@ -7,13 +7,19 @@ bootstrap, so that is listed here. Also common main title and footer.  -->
     <title>@yield('title', 'Plan My Week')</title>
     <meta charset='utf-8'>
 
-    <link href="/css/bootstrap.min.css" type='text/css' rel='stylesheet'>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link href="/css/p4.css" type='text/css' rel='stylesheet'>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+@yield('head')
 </head>
 <body>
     @if(\Session::has('flash_message'))
-    <div class='flash_message'>
+    <div "alert alert-success" role="alert">
         {{ \Session::get('flash_message') }}
     </div>
     @endif
@@ -45,12 +51,17 @@ bootstrap, so that is listed here. Also common main title and footer.  -->
                         <li><a href="/activities/create">Create Activity</a></li>
                     </ul>
                 </li>
-                <li role="presentation"><a href="#">Schedules</a></li>
+                <li role="presentation" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedules<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/schedules/">All Schedules</a></li>
+                        <li><a href="/schedules/show/">Create Schedule</a></li>
+                    </ul>
+                </li>
                 <li role="presentation"><a href="#">Logout</a></li>
             </ul>
         </div>
     </nav>
-  <h1 class='main_title'>Plan My Week</h1>
 
     <section>
       @yield('content')
@@ -59,10 +70,9 @@ bootstrap, so that is listed here. Also common main title and footer.  -->
   <footer>
     &copy; {{ date('Y') }}
   </footer>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <section>
+
     @yield('body')
-  </section>
+
+
 </body>
 </html>

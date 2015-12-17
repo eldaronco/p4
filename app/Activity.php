@@ -24,5 +24,17 @@ class Activity extends Model
         return $this->belongsToMany('\App\Schedule')->withTimestamps();
     }
 
+    public function getActivitiesForLists() {
+
+        $activities = $this->orderby('name','ASC')->get();
+
+        $activities_for_lists = [];
+        foreach($activities as $activity) {
+            $activities_for_lists[] = $activity;
+        }
+
+        return $activities_for_lists;
+
+    }
 
 }
