@@ -12,7 +12,7 @@ class ActivityController extends Controller
     /**
     * Responds to requests to GET /activities
     */
-    protected $days_for_checkbox = Array(1 => 'Su', 2=> 'M', 3=> 'Tu', 4 => 'We', 5 => 'Th', 6 => 'F', 7 => 'Sa');
+    protected $days_for_checkbox = Array(1 => 'Su', 2=> 'M', 3=> 'Tu', 4 => 'W', 5 => 'Th', 6 => 'F', 7 => 'Sa');
 
     public function getIndex()
     {

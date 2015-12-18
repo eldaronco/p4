@@ -15,7 +15,7 @@ class ScheduleController extends Controller
 
     public function getIndex()
     {
-        $schedules = \App\Schedule::orderBy('id','DESC')->get();
+        $schedules = \App\Schedule::where('user_id','=',\Auth::id())->orderBy('id','DESC')->get();
 
         return view('schedules.index')->with('schedules',$schedules);
     }
@@ -42,7 +42,7 @@ class ScheduleController extends Controller
     # Enter schedule into the database
     $schedule = new \App\Schedule();
     $schedule->name = $request->name;
-    //    $schedule->user_id = \Auth::id(); # <--- NEW LINE
+    $schedule->user_id = \Auth::id();
     $startDt = date_create($request->startDt);
     $schedule->start_dt = date_format($startDt,"Y-m-d");
     $schedule->save();

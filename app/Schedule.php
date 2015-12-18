@@ -11,9 +11,13 @@ class Schedule extends Model
         return $this->belongsToMany('\App\Activity')->withTimestamps();
     }
 
-    public function getSchedulesForDropdown() {
+    public function user() {
+        return $this->belongsTo('\App\User');
+    }
 
-        $schedules = $this->orderby('name','ASC')->get();
+    public function getSchedulesForDropdown() {
+        # Only let the user see their schedules
+        $schedules = $this->where('user_id','=',\Auth::id())->orderby('name','ASC')->get();
 
         $schedules_for_dropdown = [];
         foreach($schedules as $schedule) {
