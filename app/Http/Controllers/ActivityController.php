@@ -69,7 +69,7 @@ class ActivityController extends Controller
         $activity->save();
 
         foreach($days as $day) {
-            $activity_dow = new \App\Activities_dow();
+            $activity_dow = new \App\Activities_Dow();
             $activity_dow->day_of_week = $day;
             $activity->activities_dow()->save($activity_dow);
         }
@@ -146,7 +146,7 @@ class ActivityController extends Controller
 
         // Get rid of all of the current activity->day_of_week rows in Activities_dow
         $old_activity_dow = [];
-        $old_activity_dow = \App\Activities_dow::where('activity_id', '=', $activity->id)->get();
+        $old_activity_dow = \App\Activities_Dow::where('activity_id', '=', $activity->id)->get();
 
         foreach ($old_activity_dow as $odow) {
             $odow->delete();
@@ -154,7 +154,7 @@ class ActivityController extends Controller
 
         // Add back the new ones
         foreach($days as $day) {
-            $activity_dow = new \App\Activities_dow();
+            $activity_dow = new \App\Activities_Dow();
             $activity_dow->day_of_week = $day;
             $activity->activities_dow()->save($activity_dow);
         }

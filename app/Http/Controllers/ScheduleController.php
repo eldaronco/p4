@@ -117,7 +117,7 @@ class ScheduleController extends Controller
         // the data to plug right in.
         // First grab each activity in the schedule
         foreach ($schedule->activities as $activity){
-            $activity_dow = \App\Activities_dow::where('activity_id', '=', $activity->id)->get();
+            $activity_dow = \App\Activities_Dow::where('activity_id', '=', $activity->id)->get();
             // Then find each day of the week that the activity is on.  Add the DOW number - 1 to the start date (Monday is DOW 2, but start date is always
             // Sunday so need to subtract 1)
             foreach ($activity_dow as $dow) {
