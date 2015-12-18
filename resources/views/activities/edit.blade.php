@@ -4,7 +4,9 @@
     Edit Activity
 @stop
 
-
+{{--
+    This is the view to edit an activity.  It populates the activity fields with the data from the input activity_id.
+--}}
 {{--
 This `head` section will be yielded right before the closing </head> tag.
 Use it to add specific things that *this* View needs in the head,
@@ -57,7 +59,6 @@ such as a page specific styesheets.
         </div>
 
 
-
         <div class='form-group'>
             <label for='Duration'>Duration (min):</label>
             <input
@@ -69,9 +70,9 @@ such as a page specific styesheets.
         </div>
 
 
-
         <div class='form-group'>
             <label for='days'>Days</label>
+            <br />
             @foreach($days_for_checkbox as $day_id => $day)
             <?php $checked = (in_array($day_id,$days_for_this_activity)) ? 'CHECKED' : '' ?>
                 <input {{ $checked }} type='checkbox' name='days[]' value='{{$day_id}}'> {{ $day }}<br>

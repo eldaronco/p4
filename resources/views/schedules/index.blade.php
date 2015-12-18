@@ -28,7 +28,7 @@ such as a page specific styesheets.
 <table id='schedule_table' class='table'>
     <thead>
         <tr>
-            <th>Name</th><th>Start</th><<th>Delete</th>
+            <th>Name</th><th>Start</th><th>Calendar View</th><th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +36,7 @@ such as a page specific styesheets.
         <tr>
             <td><a href='/schedules/show/{{$schedule->id}}'>{{ $schedule->name }}</a></td>
             <td>{{ $schedule->start_dt}}</td>
+            <td><a href='/schedules/calendar/{{$schedule->id}}'>Calendar View</a></td>
             <td><a href='/schedules/confirm-delete/{{$schedule->id}}'>Delete</a></td>
 
         </tr>

@@ -83,7 +83,7 @@ such as a page specific styesheets.
 <div class="form-group">
     <label for='group'>Start Date:</label>
     <div class='input-group date' id='datetimepicker1'>
-        <input type='text' class="form-control" id='startDt' name='startDt' />
+        <input type='text' class="form-control" id='startDt' name='startDt' value='{{ $schedule->start_dt }}'/>
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>

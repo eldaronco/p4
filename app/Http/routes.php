@@ -11,8 +11,10 @@
 |
 */
 
+// Welcome screen
 Route::get('/', 'WelcomeController@getIndex');
 
+// Activity routes
 Route::get('/activities/create', 'ActivityController@getCreate');
 Route::post('/activities/create', 'ActivityController@postCreate');
 
@@ -25,9 +27,9 @@ Route::get('/activities/show/{id?}', 'ActivityController@getShow');
 Route::get('/activities/confirm-delete/{id?}', 'ActivityController@getConfirmDelete');
 Route::get('/activities/delete/{id?}', 'ActivityController@getDoDelete');
 
+// Schedule Routes
 Route::get('/schedules/confirm-delete/{id?}', 'ScheduleController@getConfirmDelete');
 Route::get('/schedules/delete/{id?}', 'ScheduleController@getDoDelete');
-
 
 Route::post('/schedules/create', 'ScheduleController@postCreate');
 
@@ -37,6 +39,10 @@ Route::post('/schedules/edit', 'ScheduleController@postEdit');
 Route::get('/schedules', 'ScheduleController@getIndex');
 Route::get('/schedules/show/{id?}', 'ScheduleController@getShow');
 
+Route::get('/schedules/getCalendar/{schedule_id?}', 'ScheduleController@getCalendar');
+Route::get('/schedules/calendar/{schedule_id?}', 'ScheduleController@showCalendar');
+
+// Login and register
 
 # Show login form
 Route::get('/login', 'Auth\AuthController@getLogin');
@@ -54,8 +60,7 @@ Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
 
-Route::get('schedules/testing/{id?}', 'ScheduleController@getCalendar');
-Route::get('/schedules/calendar', 'ScheduleController@showCalendar');
+// Debugging
 
 Route::get('/practice', function() {
 

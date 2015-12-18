@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class ScheduleController extends Controller
 {
     /**
-    * Responds to requests to GET /activities
+    * Responds to requests to GET /schedules.  Show all schedules.
     */
 
     public function getIndex()
@@ -21,16 +21,15 @@ class ScheduleController extends Controller
     }
 
     /**
-    * Responds to requests to GET /activities/create
+    * Responds to requests to GET /schedules/calendar/id.  Shows the schedule in calendar view.
     */
-    public function showCalendar()
+    public function showCalendar($schedule_id=null)
     {
-        return view('schedules.calendar');
-
+        return view('schedules.calendar')->with('schedule_id', $schedule_id);
     }
 
     /**
-    * Responds to requests to POST /activities/create
+    * Responds to requests to POST /schedules/create.  Create a new schedule.
     */
     public function postCreate(Request $request) {
         $this->validate(
@@ -60,17 +59,23 @@ class ScheduleController extends Controller
     return redirect('/schedules');
     }
 
-
+    /**
+    * Responds to requests to GET /schedules/show/ (add a schedule) or /schedules/show/id (edit a schedule).
+    */
 
     public function getShow($id=null)
     {
         if ($id > 0) {
+            // Edit an existing schedule
             $scheduleModel = new \App\Schedule();
+            // Grab existing schedules for the dropdown list.  Selected schedule will be selected in the view.
             $schedules_for_dropdown = $scheduleModel->getSchedulesForDropdown();
+
+            // Get activities to choose from.
             $activityModel = new \App\Activity();
             $activities_for_lists = $activityModel->getActivitiesForLists();
 
-
+            // Find the activities that go with this schedule.
             $schedule = \App\Schedule::with('activities')->find($id);
             $activities_for_this_schedule = [];
             foreach ($schedule->activities as $activity){
@@ -83,6 +88,7 @@ class ScheduleController extends Controller
             ->with('activities_for_lists',$activities_for_lists);
         }
         else {
+            // Create a new schedule.  Otherwise same as above but no current activities.
             $scheduleModel = new \App\Schedule();
             $schedules_for_dropdown = $scheduleModel->getSchedulesForDropdown();
             $schedules = \App\Schedule::with('activities')->orderBy('id','DESC')->get();
@@ -116,30 +122,36 @@ class ScheduleController extends Controller
     }
 */
     /**
-    * Responds to requests to GET /activities/edit
+    * Responds to requests to GET /schedules/getCalendar/{id} from the calendar view.  This creates the json
+    * object with the array of calendar activities to be rendered in the FullCalendar jquery plugin calendar.
     */
     public function getCalendar($id=null)
     {
         $calendarArray = [];
         $schedule = \App\Schedule::with('activities')->find($id);
-
-
+// The toughest part of this was creating the input data in the json format that FullCalendar required.  I didn't exactly design
+// the data to plug right in.
+// First grab each activity in the schedule
         foreach ($schedule->activities as $activity){
             $activity_dow = \App\Activities_dow::where('activity_id', '=', $activity->id)->get();
-
+// Then find each day of the week that the activity is on.  Add the DOW number - 1 to the start date (Monday is DOW 2, but start date is always
+// Sunday so need to subtract 1)
             foreach ($activity_dow as $dow) {
                 $start = $schedule->start_dt ;
                 $inputDate = $start . " + " . ($dow->day_of_week - 1) . " days";
+                // format the time of the activity to 4 digits i.e. in case someone entered 800 instead of 0800.
                 $activityTime = sprintf("%04d", $activity->default_time);
-                //Split string into an array.  Each element is 2 chars
+                // Split string into an array of 2 digit elements
                 $chunks = str_split($activityTime, 2);
-                //Convert array to string.  Each element separated by the given separator.
+                // Convert array to string with : between the elements.  Makes 0800 into 08:00 which is the format I need.
                 $activityTime = implode(':', $chunks);
-
+                // Take the input date that I calculated earlier and make it a date in the right format
                 $activityDate = date('Y-m-d',strtotime($inputDate));
+                // Add on the time and reformat
                 $activityStartDate = date('Y-m-d H:i', strtotime($activityDate . " " . $activityTime));
+                // Calculate the time of the activity end by adding the duration in minutes.  Format that too.
                 $activityEnd = date('Y-m-d H:i',strtotime($activityStartDate . " + " . $activity->duration_minutes . " minutes"));
-
+                // Phew!  Now build my array element.
                 $calendarArray[] = Array(
                 "title"  => $activity->name,
                 "start"  => $activityStartDate,
@@ -149,12 +161,12 @@ class ScheduleController extends Controller
             }
 
         }
-        // return json_encode($calendarArray);
+        // convert the array to json
         return response()->json($calendarArray);
     }
 
     /**
-    * Responds to requests to POST /activities/edit
+    * Responds to requests to POST /schedules/edit
     */
     public function postEdit(Request $request)
     {
@@ -180,6 +192,7 @@ class ScheduleController extends Controller
 
     }
 
+    // Confirm deletion view
     public function getConfirmDelete($schedule_id) {
 
         $schedule = \App\Schedule::find($schedule_id);
@@ -187,9 +200,10 @@ class ScheduleController extends Controller
         return view('schedules.delete')->with('schedule', $schedule);
     }
 
+    // Do the delete.
     public function getDoDelete($schedule_id) {
 
-        # Get the book to be deleted
+        # Get the schedule to be deleted
         $schedule = \App\Schedule::find($schedule_id);
 
         if(is_null($schedule)) {
@@ -198,11 +212,12 @@ class ScheduleController extends Controller
         }
 
 
-        # Then delete the book
+        # Detach any activities that go with the schedule.
         if($schedule->activities()) {
             $schedule->activities()->detach();
         }
 
+        # Delete the schedule.
         $schedule->delete();
 
         # Done

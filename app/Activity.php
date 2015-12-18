@@ -14,7 +14,7 @@ class Activity extends Model
     }
 
     public function activities_dow() {
-        # Activity belongs to many days of the week
+        # Activity has many days of the week
         # Define a one-to-many relationship.
         return $this->hasMany('\App\Activities_Dow');
     }
@@ -25,7 +25,7 @@ class Activity extends Model
     }
 
     public function getActivitiesForLists() {
-
+        # This is for the lists that users can pick from to create schedules.
         $activities = $this->orderby('name','ASC')->get();
 
         $activities_for_lists = [];

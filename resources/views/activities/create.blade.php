@@ -68,7 +68,7 @@ such as a page specific styesheets.
 
         <div class='form-group'>
             <label for='days'>Days</label>
-
+            <br />
             @foreach($days_for_checkbox as $day_id => $day)
 
                 <input type='checkbox' name='days[]' value='{{$day_id}}'> {{ $day }}<br>
