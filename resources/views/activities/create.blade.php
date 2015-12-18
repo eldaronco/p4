@@ -36,11 +36,12 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
-            <label>* Description:</label>
+            <label>Description:</label>
             <input
                 type='text'
                 id='description'
                 name='description'
+                size='50'
                 value='{{ old('description','Description') }}'
             >
         </div>
@@ -57,7 +58,7 @@ such as a page specific styesheets.
 
 
         <div class='form-group'>
-            <label for='Duration'>Duration:</label>
+            <label for='duration_minutes'>* Duration:</label>
             <input
                 type='text'
                 id='duration_minutes'
@@ -67,7 +68,7 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
-            <label for='days'>Days</label>
+            <label for='days'>* Days</label>
             <br />
             @foreach($days_for_checkbox as $day_id => $day)
 
@@ -78,7 +79,7 @@ such as a page specific styesheets.
         </div>
 
         <div class="form-group">
-            <label for='default_time'>Time (hhmm):</label>
+            <label for='default_time'>* Time (24HHii):</label>
             <input
                 type='time'
                 id='default_time'
@@ -86,7 +87,6 @@ such as a page specific styesheets.
                 value='{{ old('default_time','1300') }}'
                 >
         </div>
-
 
 
         <button type="submit" class="btn btn-primary">Create Activity</button>

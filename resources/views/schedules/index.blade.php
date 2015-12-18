@@ -3,7 +3,9 @@
 @section('title')
     Show Schedules
 @stop
-
+{{--
+Simple view to display the schedules.  You can go to the Calendar View, Edit, or Delete from this view.
+--}}
 
 {{--
 This `head` section will be yielded right before the closing </head> tag.
@@ -28,15 +30,16 @@ such as a page specific styesheets.
 <table id='schedule_table' class='table'>
     <thead>
         <tr>
-            <th>Name</th><th>Start</th><th>Calendar View</th><th>Delete</th>
+            <th>Name</th><th>Start</th><th>Calendar View</th><th>Edit</th><th>Delete</th>
         </tr>
     </thead>
     <tbody>
         @foreach($schedules as $schedule)
         <tr>
-            <td><a href='/schedules/show/{{$schedule->id}}'>{{ $schedule->name }}</a></td>
+            <td>{{ $schedule->name }}</td>
             <td>{{ $schedule->start_dt}}</td>
             <td><a href='/schedules/calendar/{{$schedule->id}}'>Calendar View</a></td>
+            <td><a href='/schedules/show/{{$schedule->id}}'>Edit</a></td>
             <td><a href='/schedules/confirm-delete/{{$schedule->id}}'>Delete</a></td>
 
         </tr>

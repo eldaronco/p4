@@ -42,14 +42,14 @@ bootstrap, so that is listed here. Also common main title and footer.  -->
                 <li role="presentation" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/activities/show">View Activities</a></li>
+                        <li><a href="/activities/show">Show Activities</a></li>
                         <li><a href="/activities/create">Create Activity</a></li>
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedules<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/schedules/">All Schedules</a></li>
+                        <li><a href="/schedules/">Show Schedules</a></li>
                         <li><a href="/schedules/show/">Create Schedule</a></li>
                     </ul>
                 </li>

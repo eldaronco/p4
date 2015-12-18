@@ -29,7 +29,6 @@ $(document).ready(function(){
         $('#activities').append($(selectedOpts).clone());
         $(selectedOpts).remove();
         e.preventDefault();
-
     });
     $('#btnLeft').click(function(e) {
         var selectedOpts = $('#activities option:selected');

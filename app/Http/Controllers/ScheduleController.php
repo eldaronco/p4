@@ -35,13 +35,14 @@ class ScheduleController extends Controller
         $this->validate(
         $request,
         [
-            'name' => 'required|min:3'
+            'name' => 'required|min:3',
+            'startDt' => 'required|date'
         ]
-    );
+        );
     # Enter schedule into the database
     $schedule = new \App\Schedule();
     $schedule->name = $request->name;
-//    $schedule->user_id = \Auth::id(); # <--- NEW LINE
+    //    $schedule->user_id = \Auth::id(); # <--- NEW LINE
     $startDt = date_create($request->startDt);
     $schedule->start_dt = date_format($startDt,"Y-m-d");
     $schedule->save();
@@ -103,24 +104,7 @@ class ScheduleController extends Controller
         }
 
     }
-/*
-    public function getActivities($id)
-    {
 
-        $scheduleModel = new \App\Schedule();
-        $schedules_for_dropdown = $scheduleModel->getSchedulesForDropdown();
-
-        $schedule = \App\Schedule::where('id','=',$id)->first();
-        $activities_for_this_schedule = [];
-        foreach ($schedule->activities as $activity){
-            $activities_for_this_schedule[] = $activity->name;
-        }
-        return view('schedules.show')
-        ->with('schedule', $schedule)
-        ->with('schedules_for_dropdown',$schedules_for_dropdown)
-        ->with('activities_for_this_schedule',$activities_for_this_schedule);
-    }
-*/
     /**
     * Responds to requests to GET /schedules/getCalendar/{id} from the calendar view.  This creates the json
     * object with the array of calendar activities to be rendered in the FullCalendar jquery plugin calendar.
@@ -129,13 +113,13 @@ class ScheduleController extends Controller
     {
         $calendarArray = [];
         $schedule = \App\Schedule::with('activities')->find($id);
-// The toughest part of this was creating the input data in the json format that FullCalendar required.  I didn't exactly design
-// the data to plug right in.
-// First grab each activity in the schedule
+        // The toughest part of this was creating the input data in the json format that FullCalendar required.  I didn't exactly design
+        // the data to plug right in.
+        // First grab each activity in the schedule
         foreach ($schedule->activities as $activity){
             $activity_dow = \App\Activities_dow::where('activity_id', '=', $activity->id)->get();
-// Then find each day of the week that the activity is on.  Add the DOW number - 1 to the start date (Monday is DOW 2, but start date is always
-// Sunday so need to subtract 1)
+            // Then find each day of the week that the activity is on.  Add the DOW number - 1 to the start date (Monday is DOW 2, but start date is always
+            // Sunday so need to subtract 1)
             foreach ($activity_dow as $dow) {
                 $start = $schedule->start_dt ;
                 $inputDate = $start . " + " . ($dow->day_of_week - 1) . " days";
@@ -157,12 +141,10 @@ class ScheduleController extends Controller
                 "start"  => $activityStartDate,
                 "end"    => $activityEnd
             );
-
-            }
-
         }
-        // convert the array to json
-        return response()->json($calendarArray);
+    }
+    // convert the array to json
+    return response()->json($calendarArray);
     }
 
     /**
@@ -170,10 +152,17 @@ class ScheduleController extends Controller
     */
     public function postEdit(Request $request)
     {
+        $this->validate(
+        $request,
+        [
+            'name' => 'required|min:3',
+            'startDt' => 'required|date'
+        ]
+        );
         # Enter schedule into the database
         $schedule = \App\Schedule::with('activities')->find($request->id);
         $schedule->name = $request->name;
-    //    $schedule->user_id = \Auth::id(); # <--- NEW LINE
+        //    $schedule->user_id = \Auth::id(); # <--- NEW LINE
         $startDt = date_create($request->startDt);
         $schedule->start_dt = date_format($startDt,"Y-m-d");
         $schedule->save();

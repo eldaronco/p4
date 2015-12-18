@@ -39,11 +39,12 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
-            <label>* Description:</label>
+            <label>Description:</label>
             <input
                 type='text'
                 id='description'
                 name='description'
+                size='50'
                 value='{{$activity->description }}'
             >
         </div>
@@ -60,7 +61,7 @@ such as a page specific styesheets.
 
 
         <div class='form-group'>
-            <label for='Duration'>Duration (min):</label>
+            <label for='Duration'>* Duration (min):</label>
             <input
                 type='text'
                 id='duration_minutes'
@@ -71,7 +72,7 @@ such as a page specific styesheets.
 
 
         <div class='form-group'>
-            <label for='days'>Days</label>
+            <label for='days'>* Days</label>
             <br />
             @foreach($days_for_checkbox as $day_id => $day)
             <?php $checked = (in_array($day_id,$days_for_this_activity)) ? 'CHECKED' : '' ?>
@@ -80,12 +81,12 @@ such as a page specific styesheets.
         </div>
 
         <div class="form-group">
-            <label for='default_time'>Time (hhmm):</label>
+            <label for='default_time'>* Time (24Hi):</label>
             <input
                 type='time'
                 id='default_time'
                 name="default_time"
-                value='{{ old('default_time','1300') }}'
+                value='{{ $activity->default_time }}'
                 >
         </div>
 

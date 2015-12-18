@@ -28,7 +28,7 @@ such as a page specific styesheets.
 <table id='activity_table' class='table'>
     <thead>
         <tr>
-            <th>Name</th><th>Description</th><th>Group</th><th>DOW</th><th>Edit</th><th>Delete</th>
+            <th>Name</th><th>Description</th><th>Group</th><th>DOW</th><th>Time</th><th>Edit</th><th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +38,7 @@ such as a page specific styesheets.
             <td>{{ $activity->description }}</td>
             <td>{{ $activity->group->name }}</td>
             <td>{{ $activity->days }}</td>
+            <td>{{ $activity->default_time }}</td>
             <td><a href='/activities/edit/{{$activity->id}}'>Edit</a></td>
             <td><a href='/activities/confirm-delete/{{$activity->id}}'>Delete</a></td>
 

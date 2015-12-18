@@ -43,6 +43,8 @@ class ActivityController extends Controller
                 'name' => 'required|min:2',
                 'duration_minutes' => 'required|min:1',
                 'group' => 'required',
+                'days' => 'required',
+                'default_time' => 'required|date_format:Hi'
             ]
         );
     # Enter activity into the database
@@ -112,6 +114,16 @@ class ActivityController extends Controller
     * Responds to requests to POST /activities/edit
     */
     public function postEdit(Request $request) {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|min:2',
+                'duration_minutes' => 'required|min:1',
+                'group' => 'required',
+                'days' => 'required',
+                'default_time' => 'required|date_format:Hi'
+            ]
+        );
         $activity = \App\Activity::find($request->id);
         $activity->name = $request->name;
         $activity->description = $request->description;
