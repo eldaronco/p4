@@ -14,34 +14,34 @@
 // Welcome screen
 Route::get('/', 'WelcomeController@getIndex');
 
-// Activity routes
-Route::get('/activities/create', 'ActivityController@getCreate');
-Route::post('/activities/create', 'ActivityController@postCreate');
+Route::group(['middleware' => 'auth'], function () {
+    // Activity routes
+    Route::get('/activities/create', 'ActivityController@getCreate');
+    Route::post('/activities/create', 'ActivityController@postCreate');
 
-Route::get('/activities/edit/{id?}', 'ActivityController@getEdit');
-Route::post('/activities/edit', 'ActivityController@postEdit');
+    Route::get('/activities/edit/{id?}', 'ActivityController@getEdit');
+    Route::post('/activities/edit', 'ActivityController@postEdit');
 
-Route::get('/activities', 'ActivityController@getIndex');
-Route::get('/activities/show/{id?}', 'ActivityController@getShow');
+    Route::get('/activities', 'ActivityController@getIndex');
+    Route::get('/activities/show/{id?}', 'ActivityController@getShow');
 
-Route::get('/activities/confirm-delete/{id?}', 'ActivityController@getConfirmDelete');
-Route::get('/activities/delete/{id?}', 'ActivityController@getDoDelete');
+    Route::get('/activities/confirm-delete/{id?}', 'ActivityController@getConfirmDelete');
+    Route::get('/activities/delete/{id?}', 'ActivityController@getDoDelete');
 
-// Schedule Routes
-Route::get('/schedules/confirm-delete/{id?}', 'ScheduleController@getConfirmDelete');
-Route::get('/schedules/delete/{id?}', 'ScheduleController@getDoDelete');
+    // Schedule Routes
+    Route::get('/schedules/confirm-delete/{id?}', 'ScheduleController@getConfirmDelete');
+    Route::get('/schedules/delete/{id?}', 'ScheduleController@getDoDelete');
 
-Route::post('/schedules/create', 'ScheduleController@postCreate');
+    Route::post('/schedules/create', 'ScheduleController@postCreate');
 
+    Route::post('/schedules/edit', 'ScheduleController@postEdit');
 
-Route::post('/schedules/edit', 'ScheduleController@postEdit');
+    Route::get('/schedules', 'ScheduleController@getIndex');
+    Route::get('/schedules/show/{id?}', 'ScheduleController@getShow');
 
-Route::get('/schedules', 'ScheduleController@getIndex');
-Route::get('/schedules/show/{id?}', 'ScheduleController@getShow');
-
-Route::get('/schedules/getCalendar/{schedule_id?}', 'ScheduleController@getCalendar');
-Route::get('/schedules/calendar/{schedule_id?}', 'ScheduleController@showCalendar');
-
+    Route::get('/schedules/getCalendar/{schedule_id?}', 'ScheduleController@getCalendar');
+    Route::get('/schedules/calendar/{schedule_id?}', 'ScheduleController@showCalendar');
+});
 // Login and register
 
 # Show login form

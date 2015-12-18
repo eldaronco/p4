@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Create Schedule
+    View Schedule
 @stop
 
 {{--

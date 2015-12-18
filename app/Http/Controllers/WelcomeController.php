@@ -14,12 +14,12 @@ class WelcomeController extends Controller
     */
     public function getIndex() {
 
-        # Logged in users should not see the welcome page, send them to the books index instead.
-//        if(\Auth::check()) {
-//            return redirect()->to('/books');
-//        }
+        # Logged in users should not see the welcome page, send them to the schedule index instead.
+      if(\Auth::check()) {
+            return redirect()->to('/schedules');
+        }
 
         return view('welcome.index');
-//        return 'Welcome to Plan My Week!';
+        return 'Welcome to Plan My Week!';
     }
 }

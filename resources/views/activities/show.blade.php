@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Edit Activity
+    Show Activities
 @stop
 
 
@@ -13,7 +13,6 @@ such as a page specific styesheets.
 @section('head')
 
 @stop
-
 
 @section('content')
 
