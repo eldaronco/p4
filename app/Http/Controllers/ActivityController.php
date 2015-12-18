@@ -44,7 +44,7 @@ class ActivityController extends Controller
                 'duration_minutes' => 'required|min:1',
                 'group' => 'required',
                 'days' => 'required',
-                'default_time' => 'required|date_format:Hi'
+                'default_time' => 'required|digits:4'
             ]
         );
     # Enter activity into the database
@@ -121,7 +121,7 @@ class ActivityController extends Controller
                 'duration_minutes' => 'required|min:1',
                 'group' => 'required',
                 'days' => 'required',
-                'default_time' => 'required|date_format:Hi'
+                'default_time' => 'required|digits:4'
             ]
         );
         $activity = \App\Activity::find($request->id);

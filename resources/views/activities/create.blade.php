@@ -26,7 +26,7 @@ such as a page specific styesheets.
         <input type='hidden' value='{{ csrf_token() }}' name='_token'>
 
         <div class='form-group'>
-            <label>* Name:</label>
+            <label for='name'>* Name:</label>
             <input
                 type='text'
                 id='name'
@@ -36,7 +36,7 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
-            <label>Description:</label>
+            <label for='description'>Description:</label>
             <input
                 type='text'
                 id='description'
@@ -68,7 +68,7 @@ such as a page specific styesheets.
         </div>
 
         <div class='form-group'>
-            <label for='days'>* Days</label>
+            <label>* Days</label>
             <br />
             @foreach($days_for_checkbox as $day_id => $day)
 
@@ -79,9 +79,9 @@ such as a page specific styesheets.
         </div>
 
         <div class="form-group">
-            <label for='default_time'>* Time (24HHii):</label>
+            <label for='default_time'>* Time (24NNNN):</label>
             <input
-                type='time'
+                type='text'
                 id='default_time'
                 name="default_time"
                 value='{{ old('default_time','1300') }}'

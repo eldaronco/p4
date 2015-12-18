@@ -18,7 +18,7 @@ bootstrap, so that is listed here. Also common main title and footer.  -->
         @yield('head')
     </head>
     <body>
-        <h2>Plan My Week</h2>
+        <h2 class='main_title'>Plan My Week</h2>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -63,6 +63,9 @@ bootstrap, so that is listed here. Also common main title and footer.  -->
         @endif
 
         <section>
+            @if(Auth::check())
+            <h4>Hello {{ $user->name }}!</h4>
+            @endif
             @yield('content')
         </section>
 

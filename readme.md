@@ -14,5 +14,7 @@ Once again, I ran out of time.  I was able to do the CRUD for the activities and
 
 On the positive side, I got some of the jQuery working more or less, and was able to use the calendar view to display the schedules.  Integrating javascript and jQuery - plus the bootstrap styling - was a great way to round out my Web Technologies classwork.  I did enjoy working on this project, though I'm exhausted!
 
+Note on the validation.  I had 2 w3c validation errors that I couldn't shake.  First the debugbar was giving an error on the css call that comes with it.  The other issue was that the way we are making the select list select our value on edit pages (taken from the foobooks example) leaves a random 'select' text in the list in the markup.  
+
 ## Outside code
 I used the FullCalendar jQuery plugin (and associated css and js code) for my calendar view.  I used the Bootstrap datepicker for the schedule start date selection.  Also I used bootstrap.min.css for styling.
