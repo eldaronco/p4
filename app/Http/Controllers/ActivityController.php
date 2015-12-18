@@ -173,16 +173,18 @@ class ActivityController extends Controller
 
     public function getDoDelete($activity_id) {
 
-        # Get the book to be deleted
+        # Get the activity to be deleted
         $activity = \App\Activity::find($activity_id);
 
         if(is_null($activity)) {
             \Session::flash('flash_message','Activity not found.');
             return redirect('/activities/show');
         }
-
-
-        # Then delete the book
+        # Delete the row in activity-schedule pivot
+        if($activity->schedules()) {
+            $activity->schedules()->detach();
+        }
+        # Then delete the activity after the days of week
         $activity->activities_dow()->delete();
         $activity->delete();
 
