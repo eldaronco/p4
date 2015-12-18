@@ -7,7 +7,7 @@
 This project was to create a web application called 'Plan My Week'. The idea was to provide a simple interface for creating a weekly calendar of activities so that the user could organize their hours efficiently.  The user could create, prioritize, and choose activities such as fitness, study, and socializing and organize those hours around must-haves such as work, family time, and sleep.  The chosen activities could be added to a named schedule and viewed in a calendar.
 
 ## Demo
-http://screencast.com/t/NhrKOclJI
+http://screencast.com/t/mdp453EPVT
 
 ## Details for teaching team
 Once again, I ran out of time.  I was able to do the CRUD for the activities and schedules, create groups, and do some validation and user authentication.  I was pretty sure that I wasn't going to get to the non-essentials such as de-confliction and deleting activities from the Calendar View so that wasn't a surprise.  I was also unable to get to one of my essentials which was to view activities by group.  I also didn't do much client-side validation.
